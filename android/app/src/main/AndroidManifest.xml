@@ -8,6 +8,14 @@
   <!-- These require runtime permissions on M -->
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+  <!-- Added permissions -->
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+<!-- Optional permissions -->
+<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
   <!-- END OPTIONAL PERMISSIONS -->
   <application
     android:name=".MainApplication"
@@ -19,7 +27,7 @@
   >
   <meta-data
      android:name="com.google.android.geo.API_KEY"
-     android:value="AIzaSyDXARNEvhiGYG0-hbEkB2oiull2NmbZRZA"/>
+     android:value="YOUR_GOOGLE_API_KEY"/>
 
    <!-- You will also only need to add this uses-library tag -->
    <uses-library android:name="org.apache.http.legacy" android:required="false"/>
