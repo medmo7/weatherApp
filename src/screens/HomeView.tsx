@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, Text, View, StatusBar } from 'react-native';
 
 import * as Location from 'expo-location';
 import { connect } from 'react-redux'
+import Config from "react-native-config";
 
 import assetsManager from '../assets/assetsManager';
 import { CityWeather } from '../util/types';
@@ -33,7 +34,7 @@ function HomeView(props) {
 
     const fetchWeatherData = () => {
         // TODO: store data in redux and refetch only one time every 6h
-        const query = 'http://api.openweathermap.org/data/2.5/find?lat=23.68&lon=90.35&cnt=50&units=metric&appid=fc2de7881cf571d45f100b1bedd2d6e9' // TODO: move to quey generator
+        const query = `http://api.openweathermap.org/data/2.5/find?lat=23.68&lon=90.35&cnt=50&units=metric&appid=${Config.OPEN_WEATHER_API}` // TODO: move to quey generator
         fetch(query)
             .then(response => response.json())
             .then(result => setWeatherData(result.list))
