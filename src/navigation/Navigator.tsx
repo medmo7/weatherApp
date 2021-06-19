@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StatusBar } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -12,11 +12,8 @@ import assetsManager from '../assets/assetsManager';
 const Stack = createStackNavigator();
 function AppNavigator(props) {
 
-    const navigationRef = React.useRef();
     return (
-        <NavigationContainer
-            ref={navigationRef}>
-
+        <NavigationContainer>
             <Stack.Navigator screenOptions={{
                 title: 'WeatherApp', headerStyle: {
                     backgroundColor: assetsManager.COLORS.HEADER_GREEN,
@@ -32,27 +29,6 @@ function AppNavigator(props) {
         </NavigationContainer>
     );
 }
-const homeStack = createStackNavigator(
-    {
-        HomeView: {
-            screen: HomeView,
-        },
-        CityView: {
-            screen: CityView,
-        },
-    },
-
-    {
-        initialRouteName: 'HomeView',
-        defaultNavigationOptions: {
-            headerTintColor: '#FFF',
-            headerStyle: {
-                backgroundColor: '#00804A',
-            },
-            headerTitle: 'WeatherApp',
-        },
-    },
-);
 
 
 ;
