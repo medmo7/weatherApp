@@ -1,38 +1,64 @@
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Dimensions, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import assetsManager from '../assets/assetsManager';
 
-import assetsManager from '../assets/assetsManager'
 
-export default function SmallWeatherCard() {
+const HEIGHT = Dimensions.get('window').height
+
+export default function SmallWeatherCard(props) {
+
+
+    const loadCityView = () => {
+        props.handleCityView()
+    }
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity 
+            style={styles.container}
+            onPress={loadCityView}>
             <View style={styles.city}>
                 <Text style={styles.cityName}>Agadir</Text>
                 <Text style={styles.cityWeather}>Sunny</Text>
             </View>
             <View style={styles.temp}>
-                <Text style={styles.tempInNum}>25 c</Text>
+                <Text style={styles.tempInNum}>25° c</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        height: HEIGHT * 0.1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 10,
-        backgroundColor: assetsManager.COLORS.WHITE
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        backgroundColor: assetsManager.COLORS.WHITE,
+        borderBottomWidth: 0.3,
+        borderBottomColor: '#dddddd',
+
     },
     city: {
+        flex: 0.5,
         justifyContent: "space-between",
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
     },
     temp: {
+        flex: 0.5,
         justifyContent: "center",
         alignItems: 'flex-end'
     },
-    cityName: {},
-    cityWeather: {},
-    tempInNum: {},
+    cityName: {
+        fontFamily: assetsManager.FONTS.regular,
+        fontSize: assetsManager.FONTS_SIZE.FONT_SIZE_H2
+    },
+    cityWeather: {
+        fontFamily: assetsManager.FONTS.regular,
+        fontSize: assetsManager.FONTS_SIZE.FONT_SIZE_H3
+    },
+    tempInNum: {
+        fontFamily: assetsManager.FONTS.semiBold,
+        fontSize: assetsManager.FONTS_SIZE.FONT_SIZE_H1_MAX
+    },
 })
