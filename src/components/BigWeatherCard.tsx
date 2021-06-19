@@ -1,29 +1,45 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import assetsManager from '../assets/assetsManager';
+import { Dimensions, StyleSheet, Text, View, Image } from 'react-native';
 
 import { Icon } from 'react-native-elements'
 
+import assetsManager from '../assets/assetsManager';
+import constants from '../util/constants';
+import { CityWeather } from '../util/types';
+
+
 const WIDTH = Dimensions.get('window').width
-const ICON_SIZE = Math.floor(WIDTH * 0.2)
+const ICON_SIZE = Math.floor(WIDTH * 0.3)
 
-export default function BigWeatherCard(props) {
+type Props = {
+    data: CityWeather,
+}
 
+export default function BigWeatherCard(props: Props) {
 
+    const name = props.data.name
+    const description = props.data.weather[0].description
+    const temp = props.data.main.temp + '\xB0C';
+    const tempMax = props.data.main.temp_max + '\xB0C';
+    const tempMin = props.data.main.temp_min + '\xB0C';
+    const humidity = props.data.main.humidity
+    const windSpeed = props.data.wind.speed
+    const weatherImage = constants.getWeatherIcons(props.data.weather[0].icon)
     return (
-        <View 
+        <View
             style={styles.container}>
             <View style={styles.city}>
-                <Text style={styles.cityName}>Agadir</Text>
-                <Text style={styles.weatherInfos}>Clear Sky</Text>
-                <Text style={styles.weatherInfos}>Humidity: 70</Text>
-                <Text style={styles.weatherInfos}>Wind Speed: 5.52</Text>
-                <Text style={styles.weatherInfos}>Max. Temp: 38° c</Text>
-                <Text style={styles.weatherInfos}>Min. Temp: 27° c</Text>
+                <Text style={styles.cityName}>{name}</Text>
+                <Text style={styles.weatherInfos}>{description}</Text>
+                <Text style={styles.weatherInfos}>Humidity: {humidity}</Text>
+                <Text style={styles.weatherInfos}>Wind Speed: {windSpeed}</Text>
+                <Text style={styles.weatherInfos}>Max. Temp: {tempMax}</Text>
+                <Text style={styles.weatherInfos}>Min. Temp: {tempMin}</Text>
             </View>
             <View style={styles.temp}>
-                <Text style={styles.tempInNum}>25° c</Text>
-                <Icon name="wb-sunny" size={ICON_SIZE}/>
+                <Text style={styles.tempInNum}>{temp}</Text>
+                {/* <Icon name="wb-sunny" size={ICON_SIZE} /> */}
+                <Image source={weatherImage} resizeMode="contain" style={styles.weatherImage} />
             </View>
         </View>
     )
@@ -31,11 +47,11 @@ export default function BigWeatherCard(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal:20,
-        paddingBottom:20,
+        paddingHorizontal: 20,
+        paddingBottom: 20,
         backgroundColor: assetsManager.COLORS.WHITE,
 
     },
@@ -61,4 +77,8 @@ const styles = StyleSheet.create({
         fontFamily: assetsManager.FONTS.regular,
         fontSize: assetsManager.FONTS_SIZE.FONT_SIZE_H1_MAX
     },
+    weatherImage: {
+        width: ICON_SIZE,
+        height: ICON_SIZE
+    }
 })

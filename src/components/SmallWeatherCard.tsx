@@ -1,27 +1,36 @@
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import assetsManager from '../assets/assetsManager';
 
+import assetsManager from '../assets/assetsManager';
+import { CityWeather } from '../util/types';
 
 const HEIGHT = Dimensions.get('window').height
 
-export default function SmallWeatherCard(props) {
+type Props = {
+    data :CityWeather,
+    handleCityView:(data:CityWeather) => void
+}
+
+export default function SmallWeatherCard(props:Props) {
 
 
     const loadCityView = () => {
-        props.handleCityView()
+        props.handleCityView(props.data)
     }
 
+const temp = props.data.main.temp + '\xB0C';
+const description = props.data.weather[0].description
+const name = props.data.name
     return (
         <TouchableOpacity 
             style={styles.container}
             onPress={loadCityView}>
             <View style={styles.city}>
-                <Text style={styles.cityName}>Agadir</Text>
-                <Text style={styles.cityWeather}>Sunny</Text>
+                <Text style={styles.cityName}>{name}</Text>
+                <Text style={styles.cityWeather}>{description}</Text>
             </View>
             <View style={styles.temp}>
-                <Text style={styles.tempInNum}>25° c</Text>
+                <Text style={styles.tempInNum}>{temp}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -50,7 +59,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end'
     },
     cityName: {
-        fontFamily: assetsManager.FONTS.regular,
+        fontFamily: assetsManager.FONTS.semiBold,
         fontSize: assetsManager.FONTS_SIZE.FONT_SIZE_H2
     },
     cityWeather: {
@@ -58,7 +67,7 @@ const styles = StyleSheet.create({
         fontSize: assetsManager.FONTS_SIZE.FONT_SIZE_H3
     },
     tempInNum: {
-        fontFamily: assetsManager.FONTS.semiBold,
+        fontFamily: assetsManager.FONTS.regular,
         fontSize: assetsManager.FONTS_SIZE.FONT_SIZE_H1_MAX
     },
 })
